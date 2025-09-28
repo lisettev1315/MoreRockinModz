@@ -6,104 +6,61 @@
   <title>MoreRockStarMods</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg1: #0b0712;
-      --bg2: #1b1222;
-      --neon-pink: #ff4da6;
-      --neon-cyan: #4df0ff;
-      --accent: #ffd166;
-      --muted: #cfc6d1;
-    }
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Montserrat",sans-serif;
-      color:var(--muted);
-      background: radial-gradient(circle at 10% 10%, rgba(77,240,255,0.04), transparent 10%),linear-gradient(180deg,var(--bg1),var(--bg2));
-    }
-    body::before{
-      content:"";
-      position:fixed;inset:0;
-      background-image:url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-      opacity:.06;mix-blend-mode:overlay;
-    }
-    header{text-align:center;padding:48px 16px;border-bottom:1px solid rgba(255,77,166,0.06)}
-    .logo{font-family:"Press Start 2P",monospace;color:var(--neon-pink);font-size:clamp(22px,4vw,48px);letter-spacing:1.5px;text-shadow:0 0 8px rgba(255,77,166,.28),0 0 22px rgba(77,240,255,.06),0 6px 18px rgba(0,0,0,.6);opacity:0}
-    @keyframes slamIn{0%{transform:translateY(-40px)scale(.6)rotate(-6deg);opacity:0;filter:blur(6px)}45%{transform:translateY(6px)scale(1.12)rotate(4deg);opacity:1;filter:blur(0)}70%{transform:translateY(-4px)scale(.98)rotate(-2deg)}100%{transform:translateY(0)scale(1)rotate(0);opacity:1}}
-    .logo.slam{animation:slamIn 900ms cubic-bezier(.17,.67,.12,1.02) forwards}
-    nav ul{display:flex;gap:18px;justify-content:center;list-style:none;padding:0;margin:8px 0 0;flex-wrap:wrap}
-    nav a{color:var(--neon-pink);font-weight:600;text-decoration:none;padding:6px 8px;border-radius:6px}
-    nav a:hover{background:rgba(255,77,166,0.06);color:var(--accent)}
-    .container{max-width:1200px;margin:0 auto;padding:32px 18px}
-    section{margin-bottom:36px;border-radius:12px}
-    .fade-section{opacity:0;transform:translateY(22px);transition:all 700ms cubic-bezier(.2,.9,.3,1)}
-    .fade-section.visible{opacity:1;transform:translateY(0)}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    @media(max-width:720px){.grid-2{grid-template-columns:1fr}}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.05));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.03)}
-    .card .title{color:var(--neon-cyan);font-weight:700;margin-top:8px}
-    .price{color:var(--neon-pink);font-weight:700;margin-top:6px}
-    .cart-btn{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,var(--neon-pink),#ff2b8f);color:#111;font-weight:700;padding:12px 14px;border-radius:999px;box-shadow:0 8px 18px rgba(255,77,166,0.18);z-index:1200;display:flex;gap:10px;align-items:center}
-    .cart-badge{background:#111;color:var(--neon-pink);font-weight:800;padding:6px 8px;border-radius:999px}
-    .cart-modal{position:fixed;right:18px;bottom:78px;width:340px;max-width:92%;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.12));border:1px solid rgba(255,255,255,.04);padding:12px;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,.6);display:none;z-index:1200}
-    textarea{background:transparent;border:1px solid rgba(255,255,255,.06);border-radius:6px;color:var(--muted)}
-  </style>
 </head>
-<body>
-<header>
-  <div id="logo" class="logo">MOREROCKSTARMODS</div>
-  <div class="tagline" style="color:var(--neon-cyan)">Retro mods, tools & downloads</div>
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#shop">Shop</a></li>
-      <li><a href="#blog">Blog</a></li>
-    </ul>
-  </nav>
-</header>
-<main class="container">
-  <section id="about" class="fade-section">
-    <h2 style="color:var(--neon-cyan);font-weight:800">About Me</h2>
-    <p class="muted mt8">Welcome to MoreRockStarMods! I create and share cool Rockstar mods with a retro twist.</p>
+<body class="bg-black text-white font-[Press Start 2P]">
+  <header class="text-center py-6 text-green-400 text-4xl">MoreRockStarMods</header>
+  <section id="about" class="max-w-3xl mx-auto text-center py-6">
+    <img src="creator-image.jpg" alt="Creator" class="mx-auto rounded-full w-40 h-40 mb-4">
+    <p class="text-lg">Welcome to Morerockstarmods! I create and share cool Rockstar mods with a retro twist.</p>
   </section>
-  <section id="shop" class="fade-section">
-    <h3 style="color:var(--neon-pink);font-weight:800">Shop</h3>
-    <div class="grid-2 mt12">
-      <div class="https://www.pinterest.com/pin/1090856341003388973/"><div class="title">Item 1</div><p>Item 1</p><button class="btn btn-primary add-to-cart" data-name="Item 1" data-price="4.99">Add to Cart</button></div>
-      <div class="card"><div class="title">Item 2</div><p>Item 2</p><button class="btn btn-primary add-to-cart" data-name="Item 2" data-price="5.99">Add to Cart</button></div>
-      <div class="card"><div class="title">Item 3</div><p>Item 3</p><button class="btn btn-primary add-to-cart" data-name="Item 3" data-price="6.99">Add to Cart</button></div>
-      <div class="card"><div class="title">Item 4</div><p>Item 4</p><button class="btn btn-primary add-to-cart" data-name="Item 4" data-price="7.99">Add to Cart</button></div>
+
+  <section id="gallery" class="max-w-4xl mx-auto py-6">
+    <h2 class="text-center text-yellow-400 text-2xl mb-4">Gallery</h2>
+    <div class="flex overflow-x-auto space-x-4 p-2">
+      <img src="gallery1.jpg" class="rounded-lg w-60 h-40">
+      <img src="gallery2.jpg" class="rounded-lg w-60 h-40">
+      <img src="gallery3.jpg" class="rounded-lg w-60 h-40">
+      <img src="gallery4.jpg" class="rounded-lg w-60 h-40">
     </div>
   </section>
-  <section id="blog" class="fade-section">
-    <h3 style="color:var(--neon-pink);font-weight:800">Blog</h3>
-    <textarea id="comment-text" rows="3" placeholder="Write a comment..." class="w-full p-3"></textarea>
-    <button id="post-comment" class="btn btn-primary">Post Comment</button>
-    <div id="comments-list" class="mt12"></div>
+
+  <section id="videos" class="max-w-4xl mx-auto py-6">
+    <h2 class="text-center text-yellow-400 text-2xl mb-4">Videos</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/ysz5S6PUM-U" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/abc123" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/xyz789" allowfullscreen></iframe>
+    </div>
   </section>
-</main>
-<div class="cart-btn" id="cartBtn">Cart <div class="cart-badge" id="cartCount">0</div></div>
-<div class="cart-modal" id="cartModal"><h4>Your Cart</h4><div id="cartItems"></div><div id="cartTotal" style="font-weight:800;margin-top:10px">$0.00</div></div>
-<div style="position:fixed;left:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:1200;">
-  <a href="https://www.tiktok.com/@morrockstarmodz" target="_blank" class="btn btn-ghost">TikTok</a>
-  <a href="https://youtube.com" target="_blank" class="btn btn-ghost">YouTube</a>
-  <a href="https://www.gta5-mods.com/users/morrockstarmodz" target="_blank" class="btn btn-ghost">GTA5Mods</a>
-</div>
-<script>
-const logo=document.getElementById('logo');setTimeout(()=>logo.classList.add('slam'),150);
-const observer=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.18});
-document.querySelectorAll('.fade-section').forEach(s=>observer.observe(s));
-let cart=JSON.parse(localStorage.getItem('mrm_cart')||'[]');
-const cartCount=document.getElementById('cartCount');const cartModal=document.getElementById('cartModal');const cartItems=document.getElementById('cartItems');const cartTotal=document.getElementById('cartTotal');
-function updateCartUI(){cartCount.textContent=cart.reduce((s,i)=>s+i.qty,0);cartItems.innerHTML='';if(!cart.length){cartItems.innerHTML='<div class="muted">Cart empty</div>';cartTotal.textContent='$0.00';return;}cart.forEach((it,i)=>{cartItems.innerHTML+=`<div>${it.name} x ${it.qty} - $${(it.price*it.qty).toFixed(2)} <span data-idx="${i}" class="remove" style="color:red;cursor:pointer">x</span></div>`});cartTotal.textContent='$'+cart.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2)}
-localStorage.setItem('mrm_cart',JSON.stringify(cart));updateCartUI();
-document.querySelectorAll('.add-to-cart').forEach(btn=>btn.addEventListener('click',()=>{const name=btn.dataset.name;const price=parseFloat(btn.dataset.price);const ex=cart.find(c=>c.name===name);if(ex)ex.qty++;else cart.push({name,price,qty:1});localStorage.setItem('mrm_cart',JSON.stringify(cart));updateCartUI();cartModal.style.display='block';}));
-cartBtn.addEventListener('click',()=>{cartModal.style.display=cartModal.style.display==='block'?'none':'block'});
-cartItems.addEventListener('click',e=>{if(e.target.classList.contains('remove')){cart.splice(parseInt(e.target.dataset.idx),1);localStorage.setItem('mrm_cart',JSON.stringify(cart));updateCartUI()}});
-const commentInput=document.getElementById('comment-text');const commentsList=document.getElementById('comments-list');function loadComments(){const comments=JSON.parse(localStorage.getItem('mrm_comments')||'[]');commentsList.innerHTML='';if(!comments.length){commentsList.innerHTML='<div class="muted">No comments yet.</div>';return;}comments.forEach(c=>{commentsList.innerHTML+=`<div style="background:rgba(255,255,255,.03);padding:6px;margin:4px 0;border-radius:6px"><strong style="color:var(--neon-cyan)">Guest</strong><div style="font-size:12px" class="muted">${new Date(c.t).toLocaleString()}</div><div>${c.text}</div></div>`})}
-loadComments();
-document.getElementById('post-comment').addEventListener('click',()=>{const text=commentInput.value.trim();if(!text)return alert('Write something');const comments=JSON.parse(localStorage.getItem('mrm_comments')||'[]');comments.unshift({text,t:Date.now()});localStorage.setItem('mrm_comments',JSON.stringify(comments));commentInput.value='';loadComments()});
-</script>
+
+  <section id="shop" class="max-w-5xl mx-auto py-6">
+    <h2 class="text-center text-yellow-400 text-2xl mb-4">Shop</h2>
+    <div class="grid md:grid-cols-4 gap-4">
+      <a href="https://etsy.com" target="_blank"><img src="shop1.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
+      <a href="https://etsy.com" target="_blank"><img src="shop2.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
+      <a href="https://etsy.com" target="_blank"><img src="shop3.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
+      <a href="https://etsy.com" target="_blank"><img src="shop4.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
+    </div>
+  </section>
+
+  <section id="blog" class="max-w-3xl mx-auto py-6">
+    <h2 class="text-center text-yellow-400 text-2xl mb-4">Blog</h2>
+    <textarea id="commentInput" class="w-full p-2 rounded mb-2 text-black" placeholder="Write a comment..."></textarea>
+    <button onclick="postComment()" class="bg-green-500 px-3 py-1 rounded">Post Comment</button>
+    <div id="comments" class="mt-4 space-y-2"></div>
+  </section>
+
+  <script>
+    function postComment() {
+      const comment = document.getElementById("commentInput").value;
+      if (comment.trim() === "") return;
+      const div = document.createElement("div");
+      div.textContent = comment;
+      div.classList.add("bg-gray-800", "p-2", "rounded");
+      document.getElementById("comments").appendChild(div);
+      document.getElementById("commentInput").value = "";
+    }
+  </script>
 </body>
 </html>
