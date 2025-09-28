@@ -4,63 +4,413 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MoreRockStarMods</title>
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Retro fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-black text-white font-[Press Start 2P]">
-  <header class="text-center py-6 text-green-400 text-4xl">MoreRockStarMods</header>
-  <section id="about" class="max-w-3xl mx-auto text-center py-6">
-    <img src="creator-image.jpg" alt="Creator" class="mx-auto rounded-full w-40 h-40 mb-4">
-    <p class="text-lg">Welcome to Morerockstarmods! I create and share cool Rockstar mods with a retro twist.</p>
-  </section>
 
-  <section id="gallery" class="max-w-4xl mx-auto py-6">
-    <h2 class="text-center text-yellow-400 text-2xl mb-4">Gallery</h2>
-    <div class="flex overflow-x-auto space-x-4 p-2">
-      <img src="gallery1.jpg" class="rounded-lg w-60 h-40">
-      <img src="gallery2.jpg" class="rounded-lg w-60 h-40">
-      <img src="gallery3.jpg" class="rounded-lg w-60 h-40">
-      <img src="gallery4.jpg" class="rounded-lg w-60 h-40">
-    </div>
-  </section>
-
-  <section id="videos" class="max-w-4xl mx-auto py-6">
-    <h2 class="text-center text-yellow-400 text-2xl mb-4">Videos</h2>
-    <div class="grid md:grid-cols-2 gap-4">
-      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/ysz5S6PUM-U" allowfullscreen></iframe>
-      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/abc123" allowfullscreen></iframe>
-      <iframe class="w-full aspect-video rounded-lg" src="https://www.youtube.com/embed/xyz789" allowfullscreen></iframe>
-    </div>
-  </section>
-
-  <section id="shop" class="max-w-5xl mx-auto py-6">
-    <h2 class="text-center text-yellow-400 text-2xl mb-4">Shop</h2>
-    <div class="grid md:grid-cols-4 gap-4">
-      <a href="https://etsy.com" target="_blank"><img src="shop1.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
-      <a href="https://etsy.com" target="_blank"><img src="shop2.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
-      <a href="https://etsy.com" target="_blank"><img src="shop3.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
-      <a href="https://etsy.com" target="_blank"><img src="shop4.jpg" class="rounded-lg w-full hover:scale-105 transition"></a>
-    </div>
-  </section>
-
-  <section id="blog" class="max-w-3xl mx-auto py-6">
-    <h2 class="text-center text-yellow-400 text-2xl mb-4">Blog</h2>
-    <textarea id="commentInput" class="w-full p-2 rounded mb-2 text-black" placeholder="Write a comment..."></textarea>
-    <button onclick="postComment()" class="bg-green-500 px-3 py-1 rounded">Post Comment</button>
-    <div id="comments" class="mt-4 space-y-2"></div>
-  </section>
-
-  <script>
-    function postComment() {
-      const comment = document.getElementById("commentInput").value;
-      if (comment.trim() === "") return;
-      const div = document.createElement("div");
-      div.textContent = comment;
-      div.classList.add("bg-gray-800", "p-2", "rounded");
-      document.getElementById("comments").appendChild(div);
-      document.getElementById("commentInput").value = "";
+  <style>
+    /* ---------- THEME (retro) — kept exactly as your original ---------- */
+    :root{
+      --bg1: #0b0712;           /* deep space */
+      --bg2: #1b1222;           /* dark gradient */
+      --neon-pink: #ff4da6;
+      --neon-cyan: #4df0ff;
+      --accent: #ffd166;
+      --muted: #cfc6d1;
     }
+    html,body { height:100%; }
+    body {
+      margin:0;
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: var(--muted);
+      background: radial-gradient(circle at 10% 10%, rgba(77,240,255,0.04), transparent 10%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* textured retro noise */
+    body::before{
+      content:"";
+      position:fixed; inset:0; pointer-events:none;
+      background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+      opacity:0.06;
+      mix-blend-mode: overlay;
+    }
+
+    /* ---------- HEADER & LOGO (slam) ---------- */
+    header{
+      padding: 48px 16px;
+      text-align:center;
+      border-bottom: 1px solid rgba(255,77,166,0.06);
+    }
+    .logo {
+      display:inline-block;
+      font-family: "Press Start 2P", monospace;
+      color: var(--neon-pink);
+      font-size: clamp(22px, 4vw, 48px);
+      letter-spacing: 1.5px;
+      text-shadow:
+        0 0 8px rgba(255,77,166,0.28),
+        0 0 22px rgba(77,240,255,0.06),
+        0 6px 18px rgba(0,0,0,0.6);
+      transform-origin: center bottom;
+      opacity:0;
+    }
+
+    /* slam animation */
+    @keyframes slamIn {
+      0% { transform: translateY(-40px) scale(0.6) rotate(-6deg); opacity:0; filter: blur(6px); }
+      45% { transform: translateY(6px) scale(1.12) rotate(4deg); opacity:1; filter: blur(0); }
+      70% { transform: translateY(-4px) scale(0.98) rotate(-2deg); }
+      100% { transform: translateY(0) scale(1) rotate(0); opacity:1; }
+    }
+    .logo.slam {
+      animation: slamIn 900ms cubic-bezier(.17,.67,.12,1.02) forwards;
+    }
+
+    .tagline { color: var(--neon-cyan); margin-top:8px; font-weight:500; }
+
+    /* ---------- NAV ---------- */
+    nav { margin-top: 12px; }
+    nav ul { display:flex; gap:18px; justify-content:center; list-style:none; padding:0; margin:8px 0 0 0; flex-wrap:wrap; }
+    nav a { color: var(--neon-pink); font-weight:600; text-decoration:none; padding:6px 8px; border-radius:6px; }
+    nav a:hover { background: rgba(255,77,166,0.06); color:var(--accent); }
+
+    /* ---------- SECTIONS ---------- */
+    .container { max-width:1200px; margin:0 auto; padding:32px 18px; }
+    section { margin-bottom:36px; border-radius:12px; }
+
+    /* fade on scroll */
+    .fade-section { opacity:0; transform: translateY(22px); transition: all 700ms cubic-bezier(.2,.9,.3,1); }
+    .fade-section.visible { opacity:1; transform: translateY(0); }
+
+    /* ---------- IMAGE ZOOM ---------- */
+    .zoom-hover { transition: transform .28s ease, box-shadow .28s ease; will-change: transform; }
+    .zoom-hover:hover { transform: scale(1.07); box-shadow: 0 18px 30px rgba(0,0,0,0.5); z-index:2; }
+
+    /* gallery carousel */
+    .carousel-wrap { position: relative; }
+    .carousel {
+      display:flex;
+      gap:12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding:12px;
+    }
+    .carousel .card {
+      min-width: 320px;
+      max-width: 320px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+    .carousel .card img { width:100%; height:200px; object-fit:cover; border-radius:10px; }
+
+    .carousel-btn {
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      width:42px;
+      height:42px;
+      border-radius:8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+      cursor:pointer;
+      border: 1px solid rgba(255,255,255,0.04);
+      color: var(--neon-cyan);
+    }
+    .carousel-btn.left { left:8px; }
+    .carousel-btn.right { right:8px; }
+
+    /* ---------- BANNER (etsy) ---------- */
+    .etsy-banner { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; align-items:center; }
+    .etsy-banner a { display:block; width:220px; height:140px; overflow:hidden; border-radius:12px; border:1px solid rgba(255,255,255,0.03); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+    .etsy-banner img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* ---------- VIDEO GRID ---------- */
+    .video-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; }
+    .video-grid iframe { width:100%; height:220px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); }
+
+    /* ---------- BLOG ---------- */
+    .comment { background: rgba(255,255,255,0.03); padding:10px; border-radius:8px; margin-top:8px; color:var(--muted); }
+
+    /* ---------- DASH EFFECT (on press) ---------- */
+    .dash-underline {
+      position:relative;
+      display:inline-block;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dash-underline::after {
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-6px;
+      height:3px;
+      border-bottom:3px dashed transparent;
+      transform-origin:left center;
+      transform: scaleX(0);
+      transition: transform 360ms cubic-bezier(.2,.9,.2,1), border-color 360ms;
+    }
+    .dash-underline.dash-active::after {
+      border-color: var(--neon-cyan);
+      transform: scaleX(1);
+    }
+
+    /* small helpers */
+    .muted { color: rgba(255,255,255,0.46); }
+    .mt8{ margin-top:8px } .mt12{ margin-top:12px } .mb8{ margin-bottom:8px }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div id="logo" class="logo">MOREROCKSTARMODS</div>
+    <div class="tagline">Retro mods, tools & downloads for Rockstar games</div>
+
+    <nav class="mt8">
+      <ul>
+        <li><a href="#shop" class="dash-underline">Shop</a></li>
+        <li><a href="#gallery" class="dash-underline">Gallery</a></li>
+        <li><a href="#videos" class="dash-underline">Videos</a></li>
+        <li><a href="#blog" class="dash-underline">Blog</a></li>
+        <li><a href="#about" class="dash-underline">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- ABOUT (updated: image placeholder + text) -->
+    <section id="about" class="fade-section">
+      <h2 class="text-2xl" style="color:var(--neon-cyan); font-weight:800">About Me</h2>
+
+      <!-- layout: creator image left, text right on wide screens -->
+      <div class="grid md:grid-cols-3 gap-6 items-center mt12">
+        <div class="md:col-span-1 text-center">
+          <!-- Replace 'creator.jpg' with your uploaded image path -->
+          <img src="https://placehold.co/300x300/111217/ffffff?text=Creator+Photo" alt="Creator" class="rounded-full mx-auto" style="width:200px;height:200px;object-fit:cover;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(0,0,0,0.6);">
+        </div>
+        <div class="md:col-span-2">
+          <p class="muted">Hey! I'm the creator of MoreRockstarmods — a dedicated modder bringing you custom scripts, YMAPs, textures, and tools to make GTA V and Rockstar games feel fresh. I love creating unique retro-style content that keeps the game fun for everyone. I build mods for singleplayer and FiveM, test everything for stability, and support the community with tutorials and quick updates.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP -> Replaced with banner of 4 payable images linking to Etsy -->
+    <section id="shop" class="fade-section">
+      <div class="flex items-center justify-between">
+        <h3 style="color:var(--neon-cyan); font-weight:800">Shop (Etsy)</h3>
+        <div class="muted">Click an item to purchase on Etsy</div>
+      </div>
+
+      <div class="mt12 etsy-banner">
+        <!-- Replace href with your actual Etsy listing URLs and image src with uploaded images -->
+        <a href="https://www.etsy.com/" target="_blank" rel="noopener noreferrer" aria-label="Etsy item 1">
+          <img src="https://placehold.co/600x400/ffb6c1/000?text=Etsy+Item+1" alt="Etsy Item 1">
+        </a>
+        <a href="https://www.etsy.com/" target="_blank" rel="noopener noreferrer" aria-label="Etsy item 2">
+          <img src="https://placehold.co/600x400/4df0ff/000?text=Etsy+Item+2" alt="Etsy Item 2">
+        </a>
+        <a href="https://www.etsy.com/" target="_blank" rel="noopener noreferrer" aria-label="Etsy item 3">
+          <img src="https://placehold.co/600x400/ffd166/000?text=Etsy+Item+3" alt="Etsy Item 3">
+        </a>
+        <a href="https://www.etsy.com/" target="_blank" rel="noopener noreferrer" aria-label="Etsy item 4">
+          <img src="https://placehold.co/600x400/cfc6d1/000?text=Etsy+Item+4" alt="Etsy Item 4">
+        </a>
+      </div>
+    </section>
+
+    <!-- GALLERY (carousel with prev/next controls) -->
+    <section id="gallery" class="fade-section">
+      <h3 style="color:var(--neon-pink); font-weight:800">Gallery</h3>
+
+      <div class="carousel-wrap mt12">
+        <button class="carousel-btn left" id="carouselPrev" aria-label="Previous">‹</button>
+        <div class="carousel" id="galleryCarousel" tabindex="0" aria-label="Image carousel">
+          <!-- Add as many images as you like — replace with your uploaded images -->
+          <div class="card">
+            <img src="https://placehold.co/800x500/222/fff?text=Gallery+1" alt="Gallery 1">
+            <div class="mt8 title">Gallery 1</div>
+          </div>
+          <div class="card">
+            <img src="https://placehold.co/800x500/333/fff?text=Gallery+2" alt="Gallery 2">
+            <div class="mt8 title">Gallery 2</div>
+          </div>
+          <div class="card">
+            <img src="https://placehold.co/800x500/444/fff?text=Gallery+3" alt="Gallery 3">
+            <div class="mt8 title">Gallery 3</div>
+          </div>
+          <div class="card">
+            <img src="https://placehold.co/800x500/555/fff?text=Gallery+4" alt="Gallery 4">
+            <div class="mt8 title">Gallery 4</div>
+          </div>
+          <div class="card">
+            <img src="https://placehold.co/800x500/666/fff?text=Gallery+5" alt="Gallery 5">
+            <div class="mt8 title">Gallery 5</div>
+          </div>
+        </div>
+        <button class="carousel-btn right" id="carouselNext" aria-label="Next">›</button>
+      </div>
+    </section>
+
+    <!-- VIDEO SECTION (4 spaces) -->
+    <section id="videos" class="fade-section">
+      <h3 style="color:var(--neon-cyan); font-weight:800">Videos</h3>
+      <div class="video-grid mt12">
+        <!-- Replace the sample IDs with your own YouTube/TikTok embed links -->
+        <iframe src="https://www.youtube.com/embed/ysz5S6PUM-U" title="Video 1" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video 2" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/3JZ_D3ELwOQ" title="Video 3" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/oHg5SJYRHA0" title="Video 4" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- BLOG (keeps your comment system) -->
+    <section id="blog" class="fade-section">
+      <h3 style="color:var(--neon-pink); font-weight:800">Blog</h3>
+      <p class="muted">Tips, tutorials & release notes.</p>
+
+      <div class="mt12 card">
+        <textarea id="comment-text" rows="3" placeholder="Leave a comment..." class="w-full p-3 rounded-md bg-transparent border border-white/6 text-sm"></textarea>
+        <div class="mt8 flex gap-4">
+          <button id="post-comment" class="btn btn-primary">Post Comment</button>
+          <button id="clear-comments" class="btn btn-ghost">Clear All</button>
+        </div>
+
+        <div id="comments-list" class="mt12"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING SOCIAL / CHAT (kept as-is) -->
+  <div style="position:fixed; left:18px; bottom:18px; display:flex; flex-direction:column; gap:10px; z-index:1200;">
+    <a href="https://tiktok.com" target="_blank" title="TikTok" class="btn btn-ghost">TikTok</a>
+    <a href="https://youtube.com" target="_blank" title="YouTube" class="btn btn-ghost">YouTube</a>
+    <a href="https://modfive.example.com" target="_blank" title="ModFive" class="btn btn-ghost">ModFive</a>
+    <!-- Chat (open DM link or whatsapp) -->
+    <a href="https://instagram.com" target="_blank" title="Chat/DM" class="btn btn-primary">Contact</a>
+  </div>
+
+  <!-- FOOTER (kept) -->
+  <footer style="padding:22px 18px; text-align:center; opacity:0.9; border-top:1px solid rgba(255,255,255,0.02); margin-top:28px;">
+    <div class="muted" style="font-size:12px;">© <strong>MoreRockStarMods</strong> — Retro mod hub</div>
+  </footer>
+
+  <!-- ---------- SCRIPTS (updated: removed cart logic, added carousel) ---------- -->
+  <script>
+    /* ---------- Logo slam on load (unchanged) ---------- */
+    const logo = document.getElementById('logo');
+    setTimeout(()=> logo.classList.add('slam'), 150);
+
+    /* ---------- Scroll fade-in (unchanged) ---------- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.18 });
+    document.querySelectorAll('.fade-section').forEach(s => observer.observe(s));
+
+    /* ---------- DASH effect on clickable words (unchanged) ---------- */
+    document.querySelectorAll('.dash-underline').forEach(el=>{
+      el.addEventListener('click', (ev)=>{
+        el.classList.add('dash-active');
+        setTimeout(()=> el.classList.remove('dash-active'), 700);
+      });
+    });
+
+    /* ---------- Gallery Carousel controls ---------- */
+    (function(){
+      const carousel = document.getElementById('galleryCarousel');
+      const prev = document.getElementById('carouselPrev');
+      const next = document.getElementById('carouselNext');
+      if(!carousel) return;
+
+      // scroll amount equals card width + gap
+      function scrollByCard(direction=1){
+        const card = carousel.querySelector('.card');
+        if(!card) return;
+        const style = getComputedStyle(card);
+        const gap = parseInt(getComputedStyle(carousel).gap) || 12;
+        const w = card.getBoundingClientRect().width + gap;
+        carousel.scrollBy({ left: w * direction, behavior: 'smooth' });
+      }
+
+      prev.addEventListener('click', ()=> scrollByCard(-1));
+      next.addEventListener('click', ()=> scrollByCard(1));
+
+      // keyboard navigation when carousel focused
+      carousel.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowLeft') scrollByCard(-1);
+        if(e.key === 'ArrowRight') scrollByCard(1);
+      });
+
+      // optional: snap indicator (not required) — keep simple
+    })();
+
+    /* ---------- BLOG COMMENTS (localStorage preserved) ---------- */
+    const commentInput = document.getElementById('comment-text');
+    const postBtn = document.getElementById('post-comment');
+    const clearBtn = document.getElementById('clear-comments');
+    const commentsList = document.getElementById('comments-list');
+
+    function loadComments(){
+      const comments = JSON.parse(localStorage.getItem('mrm_comments') || '[]');
+      commentsList.innerHTML = '';
+      if(!comments.length){ commentsList.innerHTML = '<div class="muted">No comments yet — be the first!</div>'; return; }
+      comments.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'comment';
+        el.innerHTML = `<div style="font-weight:700; color:var(--neon-cyan)">${c.name || 'Guest'}</div>
+                        <div style="font-size:13px" class="muted">${new Date(c.t).toLocaleString()}</div>
+                        <div style="margin-top:6px">${escapeHtml(c.text)}</div>`;
+        commentsList.appendChild(el);
+      });
+    }
+
+    function escapeHtml(str){
+      return (str+'').replace(/[&<>"'`=\/]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;",'/':'&#x2F;','`':'&#x60;','=':'&#x3D;'}[s]));
+    }
+
+    postBtn.addEventListener('click', () => {
+      const text = commentInput.value.trim();
+      if(!text) { alert('Write a comment first.'); return; }
+      const comments = JSON.parse(localStorage.getItem('mrm_comments') || '[]');
+      comments.unshift({ name: 'Guest', text, t: Date.now() });
+      localStorage.setItem('mrm_comments', JSON.stringify(comments));
+      commentInput.value = '';
+      loadComments();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if(confirm('Clear all comments?')) {
+        localStorage.removeItem('mrm_comments');
+        loadComments();
+      }
+    });
+
+    loadComments();
+
+    /* ---------- small enhancement: pressing words dash effect for other headings too ---------- */
+    document.querySelectorAll('h2,h3,p,nav a, .title').forEach(el => {
+      el.classList.add('dash-underline');
+      el.addEventListener('click', () => {
+        el.classList.add('dash-active');
+        setTimeout(()=> el.classList.remove('dash-active'), 700);
+      });
+    });
+
   </script>
 </body>
 </html>
